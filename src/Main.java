@@ -1,19 +1,34 @@
 public class Main {
     public static void main(String[] args) {
-        // create an object of Queue class
+        // Erstelle ein Objekt der MyQueue-Klasse
+        MyQueue queue = new MyQueue(5);
 
-        // try to delete element from the queue
+        // Versuche, ein Element aus der Warteschlange zu löschen
+        try {
+            queue.dequeue();
+        } catch (IllegalStateException ex) {
+            System.out.println("Aktuell ist die Warteschlange leer, daher ist eine Löschung nicht möglich.");
+        }
 
-        // currently queue is empty
+        // Fügt Elemente zur Warteschlange hinzu
+        for (int i = 1; i <= 5; i++) {
+            queue.enqueue(i);
+            System.out.println("Element " + i + " zur Warteschlange hinzugefügt. Front: " + queue.getFront() + ", Rear: " + queue.getRear());
+        }
 
-        // so deletion is not possible
+        // Überprüft, ob die Warteschlange voll ist
+        if (queue.isFull()) {
+            System.out.println("Die Warteschlange ist voll.");
+        }
 
-        // insert elements to the queue
+        // Entfernt Elemente, bis sie leer ist
+        while (!queue.isEmpty()) {
+            System.out.println("Element " + queue.dequeue() + " aus der Warteschlange entfernt. Front: " + (queue.isEmpty() ? "-" : queue.getFront()) + ", Rear: " + (queue.isEmpty() ? "-" : queue.getRear()));
+        }
 
-        // check when queue is full
-
-        // removes element until it is empty
-
-        // check if queue is empty
+        // Überprüft, ob die Warteschlange leer ist
+        if (queue.isEmpty()) {
+            System.out.println("Die Warteschlange ist leer.");
+        }
     }
 }

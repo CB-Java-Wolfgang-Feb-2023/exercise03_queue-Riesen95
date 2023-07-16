@@ -1,48 +1,77 @@
 public class MyQueue {
-    private final int SIZE;
-    private int[] queue;
-    private int front, rear;
+    private final int maxSize;
+    private final int[] queueArray;
+    private final int frontIndex;
+    private int rearIndex;
 
-    public MyQueue(int SIZE) {
-        this.SIZE = SIZE;
-        queue = new int[SIZE];
-        //front = ...
-        //rear = ...
+    public MyQueue(int maxSize) {
+        this.maxSize = maxSize;
+        queueArray = new int[maxSize];
+        frontIndex = 0;
+        rearIndex = -1;
     }
 
-    // check if the queue is full
     public boolean isFull() {
-        return false;
+        return rearIndex == maxSize - 1;
     }
 
-    // check if the queue is empty
     public boolean isEmpty() {
-        return false;
+        return rearIndex == -1;
     }
 
-    // insert elements to the queue
     public void enqueue(int element) {
+        if (isFull()) {
+            throw new IllegalStateException("Queue is full");
+        }
 
+        queueArray[++rearIndex] = element;
     }
 
-    // delete element from the queue
     public int dequeue() {
-        return 0;
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty");
+        }
+
+        int temp = queueArray[frontIndex];
+
+        System.arraycopy(queueArray, 1, queueArray, 0, rearIndex--);
+
+        return temp;
     }
 
     public int getFront() {
-        return front;
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty");
+        }
+
+        return queueArray[frontIndex];
     }
 
     public int getRear() {
-        return rear;
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty");
+        }
+
+        return queueArray[rearIndex];
     }
 
     @Override
     public String toString() {
-        return "MyQueue{}";
+        if (isEmpty()) {
+            return "MyQueue is empty";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("MyQueue elements from front to rear: ");
+
+        for (int i = frontIndex; i <= rearIndex; i++) {
+            sb.append(queueArray[i]);
+
+            if (i < rearIndex) {
+                sb.append(", ");
+            }
+        }
+
+        return sb.toString();
     }
-
 }
-
-
